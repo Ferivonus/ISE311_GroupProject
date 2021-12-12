@@ -44,9 +44,11 @@ if (!$conn) {
     <li class="iconTop"><a style="font-size:16px;" href="javascript:void(0);" onclick="myFunctionTop()">&#9776;</a></li>
 
 </ul>
+<div class="site">
 
+<h1 class="page-title">Everything will be better in future</h1>
 
-
+<div class="codeSide">
 
 <?php    
     extract($_POST);
@@ -63,31 +65,42 @@ if (!$conn) {
             $_SESSION['flag'] = false;
         }
 
-    if(isset($_POST['submitLog']))
-    {
-        $NewPerson=false;
-        $username = $_POST['username'];
 
-        $_SESSION['newPerson']=false;
-        setcookie('userName', $username, time()- 50000 );
-        $_SESSION['userName'] = $username;
-        $username = $userName;
-        $_SESSION['flag'] = true;
-    }
-    if($_SESSION['flag'])
-        {
-            $_SESSION['newPerson']=false;
-        }    
-    
-    
         $YouCanLoginAs="";
 
-        if(isset($_POST['SignMe'])){
+
+    
+       
+    
+    
+        if(isset($_POST['submitLog']))
+        {
+            $AccountUsername = $_POST['username'];
+            $AccountPassword = $_POST['password'];
+            if(empty($AccountUsername) || empty($AccountPassword))
+                {
+                    $YouCanLoginAs="<p>username and password is required for login. </p>";
+                    
+                }
+                else{
+                    $NewPerson=false;
+                    
+            
+                    $_SESSION['newPerson']=false;
+                    setcookie('userName', $username, time()- 50000 );
+                    $_SESSION['userName'] = $username;
+                    $username = $userName;
+                    $_SESSION['flag'] = true;
+                }
+            
+        }
+
+        elseif(isset($_POST['SignMe'])){
             $AccountUsername = $_POST['username'];
             $AccountPassword = $_POST['password'];
             if(empty($AccountUsername) || empty($AccountPassword))
             {
-                $YouCanLoginAs="<p>username and password is required. </p>";
+                $YouCanLoginAs="<p>username and password is required for sing in. </p>";
             }
             else{
                 $sql = "INSERT INTO Accounts (Username,superPassword) values ('$AccountUsername','$password')";
@@ -100,6 +113,11 @@ if (!$conn) {
             $YouCanLoginAs="";
         }
 
+        if($_SESSION['flag'])
+        {
+            $_SESSION['newPerson']=false;
+        } 
+
     if($_SESSION['newPerson'])
     {
             echo "<div class='justifyMiddle'>
@@ -108,13 +126,14 @@ if (!$conn) {
                 <input type='text' id='username' name='username' placeholder='Enter your username' /> <br>
                 <label for='password'>password:</label> <br>
                 <input type='password' id='password' name='password' placeholder='Enter your password' /> <br> 
-                <input type='submit' name='SignMe' value='sign me' onclick=LoginFunc()>
+                <input type='submit' name='SignMe' value='sign me' >
         
-                <input style='margin-left: 37px;' type='submit' name='submitLog' value='Log me in' onclick=LoginFunc()> <br>
+                <input style='margin-left: 37px;' type='submit' name='submitLog' value='Log me in' > <br>
             </form>
-            <p id='generalError' class='error'> </p>
               $YouCanLoginAs 
-        </div> ";
+        </div> </div> </div>
+        </body>
+        </html>";
         exit();
     }   
 ?>
@@ -142,9 +161,7 @@ if (!$conn) {
 
         if(isset($_POST['addJob']))
         {
-            $ToDo_arr = $_POST['To-do'];
-            echo "I am working<br>";
-            
+            $ToDo_arr = $_POST['To-do'];            
             $sql = "INSERT INTO jobs (AccountName,WorkToDo) values ('$username','$ToDo_arr')";
             $NewPerson=true;
             mysqli_query($conn, $sql);
@@ -180,6 +197,14 @@ if (!$conn) {
     </center>
     </div>
 
+</div>
+
+
+
+
+
+
+    </div>
 </body>
 
 </html>
