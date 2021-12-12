@@ -210,7 +210,7 @@ if (!$conn) {
         {
             
             $ToDo_arr = $_POST['To-do'];            
-            $sql = "INSERT INTO jobs (AccountName,WorkToDo) values ('$username','$ToDo_arr')";
+            $sql = "INSERT INTO jobs (AccountName,WorkToDo,is_checked) values ('$username','$ToDo_arr',0)";
             $NewPerson=true;
             mysqli_query($conn, $sql);
         }
@@ -220,27 +220,33 @@ if (!$conn) {
         
 
     
-    echo " <center> "; 
+    echo " <div class = 'justifyMiddle'> "; 
         
             echo "<table>";
+            echo "<th> what shoul I do </th>";
+            echo "<th> I am doing it. </th>";
+            echo "<th> :3 </th>";
+
             while($row = mysqli_fetch_row($resultWrite))
             {
                 echo "<tr>";
                 foreach ($row as $key =>$value){
-                    echo "<td>".$value."</td>";
+                    echo "<td>" .$value. "</td>";
+                    echo "<td> <input name='' type='checkbox' value=''> </td>";
+                    echo "<td> <div style= 'float:right' > <button>delate</button> </td>";
+                    
                 }
                 echo "</tr>";
             }
             echo "</table>";
             mysqli_close($conn);
             
-    echo " </center>";
+    echo " </div>";
             ?>
-       
 
 </div>
 
-
+            
 
 
 
