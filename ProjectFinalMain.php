@@ -231,6 +231,8 @@ if (!$conn) {
             {
                 echo "<tr>";
                 foreach ($row as $key =>$value){
+
+
                     echo "<td>" .$value. "</td>";
                     echo "<td> <input name='' type='checkbox' value=''> </td>";
                     echo "<td> <div style= 'float:right' > <button>delate</button> </td>";
