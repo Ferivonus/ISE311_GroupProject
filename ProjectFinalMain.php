@@ -72,8 +72,49 @@ if (!$conn) {
     
        
     
-    
-        if(isset($_POST['submitLog']))
+        if(isset($_POST['SignMe'])){
+            $AccountUsername = $_POST['username'];
+            $AccountPassword = $_POST['password'];
+            if(empty($AccountUsername) || empty($AccountPassword))
+            {
+                $YouCanLoginAs="<p>username and password is required for sing in. </p>";
+            }
+            else{
+                $SigningFlag=true;
+                $Who = $AccountUsername;
+                $sqlwho= "SELECT Username From Accounts WHERE Username like '$Who'";
+                $result = mysqli_query($conn, $sqlwho);
+
+                while($row = mysqli_fetch_row($result))
+                    {
+                        foreach ($row as $key =>$value){
+                            if($AccountUsername == $value){
+                                $SigningFlag=false;
+                                $YouCanLoginAs="Your username is already used by some dude.";
+                                break;
+                            }
+                        }
+                    }
+                
+
+
+                if($SigningFlag)
+                {
+                    $sql = "INSERT INTO Accounts (Username,superPassword) values ('$AccountUsername','$password')";
+                    mysqli_query($conn, $sql);
+                    $YouCanLoginAs = " <p>You can log in as ". $AccountUsername . " right now.</p>";
+                    $NewPerson=false;
+                    $_SESSION['newPerson']=false;
+                    $_SESSION['flag'] = true;
+
+                    setcookie('userName', $AccountUsername, time()- 50000 );
+                    $_SESSION['userName'] = $AccountUsername;
+                    $AccountUsername = $userName;
+                }      
+            }      
+        }
+
+        elseif(isset($_POST['submitLog']))
         {
             $AccountUsername = $_POST['username'];
             $AccountPassword = $_POST['password'];
@@ -83,32 +124,38 @@ if (!$conn) {
                     
                 }
                 else{
-                    $NewPerson=false;
-                    
-            
-                    $_SESSION['newPerson']=false;
-                    setcookie('userName', $username, time()- 50000 );
-                    $_SESSION['userName'] = $username;
-                    $username = $userName;
-                    $_SESSION['flag'] = true;
+                    $SubmitFlg=false;
+
+                    $Who = $AccountUsername;
+                    $sqlwho= "SELECT superPassword From Accounts WHERE Username like '$Who'"; 
+                    $result = mysqli_query($conn, $sqlwho);
+
+                    while($row = mysqli_fetch_row($result))
+                    {
+                        foreach ($row as $key =>$value){
+                            if($AccountPassword == $value){
+                                $SubmitFlg=true;
+                                break; 
+                            }
+                        }
+                    }
+
+                    if($SubmitFlg)
+                    {
+                        $NewPerson=false;
+                        $_SESSION['newPerson']=false;
+                        setcookie('userName', $AccountUsername, time()- 50000 );
+                        $_SESSION['userName'] = $AccountUsername;
+                        $AccountUsername = $userName;
+                        $_SESSION['flag'] = true;
+                    }
+                    else{
+                        $YouCanLoginAs="You miss wrote your username or password.";
+                    }
                 }
-            
         }
 
-        elseif(isset($_POST['SignMe'])){
-            $AccountUsername = $_POST['username'];
-            $AccountPassword = $_POST['password'];
-            if(empty($AccountUsername) || empty($AccountPassword))
-            {
-                $YouCanLoginAs="<p>username and password is required for sing in. </p>";
-            }
-            else{
-                $sql = "INSERT INTO Accounts (Username,superPassword) values ('$AccountUsername','$password')";
-                mysqli_query($conn, $sql);
-                $YouCanLoginAs = " <p>You can log in as ". $AccountUsername . " right now.</p>";
-            }
-            
-        }
+        
         else{
             $YouCanLoginAs="";
         }
