@@ -231,7 +231,8 @@ if (!$conn) {
             {
                 echo "<tr>";
                 foreach ($row as $key =>$value){
-
+                                //bir şeyi silmek isterken silmek istediği şeyin datasını bul value yi array olarak kaydedebilir. obje dili çalışabilir.
+                                //bir şeyler denenecek gibi, çünkü update olmuyor vsvs, ne yapman gerekiyor onu bulmam gerekiyor.
 
                     echo "<td>" .$value. "</td>";
                     echo "<td> <input name='' type='checkbox' value=''> </td>";
