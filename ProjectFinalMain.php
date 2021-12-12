@@ -204,31 +204,26 @@ if (!$conn) {
         $ToDo_arr="";
 
         
-        
+        $username = $_SESSION['userName'];
 
         if(isset($_POST['addJob']))
         {
+            
             $ToDo_arr = $_POST['To-do'];            
             $sql = "INSERT INTO jobs (AccountName,WorkToDo) values ('$username','$ToDo_arr')";
             $NewPerson=true;
             mysqli_query($conn, $sql);
         }
-        $username = $_SESSION['userName'];
         $Who = $username;
         $sqlwho= "SELECT WorkToDo From jobs WHERE AccountName like '$Who'"; 
-        $result = mysqli_query($conn, $sqlwho);
+        $resultWrite = mysqli_query($conn, $sqlwho);
         
-    ?>
 
-     <div>
-    <center>
-        <div>
-            <?php
-//            echo $YouCanLoginAs;
-            echo $ToDo_arr;
-            
+    
+    echo " <center> "; 
+        
             echo "<table>";
-            while($row = mysqli_fetch_row($result))
+            while($row = mysqli_fetch_row($resultWrite))
             {
                 echo "<tr>";
                 foreach ($row as $key =>$value){
@@ -238,11 +233,10 @@ if (!$conn) {
             }
             echo "</table>";
             mysqli_close($conn);
-            ?>
             
-        </div>
-    </center>
-    </div>
+    echo " </center>";
+            ?>
+       
 
 </div>
 
