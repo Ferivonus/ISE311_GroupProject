@@ -170,7 +170,7 @@ if (!$conn) {
             echo "<div class='justifyMiddle'>
             <form class='HomeworkForm' method='post' action='' >
                 <label for='username'>username:</label><br>
-                <input type='text' id='username' name='username' placeholder='Enter your username' /> <br>
+                <input type='text' id='username' name='username' placeholder='Enter your username' value= '$AccountUsername'/> <br>
                 <label for='password'>password:</label> <br>
                 <input type='password' id='password' name='password' placeholder='Enter your password' /> <br> 
                 <input type='submit' name='SignMe' value='sign me' >
