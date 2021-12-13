@@ -74,6 +74,7 @@ if (!$conn) {
     
         if(isset($_POST['SignMe'])){
             $AccountUsername = $_POST['username'];
+            $AccountUsername= strtolower($AccountUsername);
             $AccountPassword = $_POST['password'];
             if(empty($AccountUsername) || empty($AccountPassword))
             {
