@@ -127,7 +127,7 @@ if (!$conn) {
                     $SubmitFlg=false;
 
                     $Who = $AccountUsername;
-                    $sqlwho= "SELECT superPassword From Accounts WHERE Username like '$Who'"; 
+                    $sqlwho= "SELECT superPassword From Accounts WHERE Username = '$Who'"; 
                     $result = mysqli_query($conn, $sqlwho);
 
                     while($row = mysqli_fetch_row($result))
@@ -247,13 +247,7 @@ if (!$conn) {
     echo " </div>";
             ?>
 
-</div>
-
-            
-
-
-
-
+        </div>
     </div>
 </body>
 
