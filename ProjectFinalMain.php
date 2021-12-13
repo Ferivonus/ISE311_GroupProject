@@ -101,6 +101,7 @@ if (!$conn) {
 
                 if($SigningFlag)
                 {
+                    //use a protocol which could used for hiding password 
                     $sql = "INSERT INTO Accounts (Username,superPassword) values ('$AccountUsername','$password')";
                     mysqli_query($conn, $sql);
                     $YouCanLoginAs = " <p>You can log in as ". $AccountUsername . " right now.</p>";
