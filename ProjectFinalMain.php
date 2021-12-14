@@ -20,7 +20,7 @@ $server_username = "u397214565_ferivonus";
 $server_password = "Fahrettin_basturk22";
 
 // Create connection
-$conn = mysqli_connect($server_servername, $server_username, $server_password, $server_database);        // Check connection
+$conn = new mysqli($server_servername, $server_username, $server_password, $server_database);        // Check connection
 if (!$conn) {
 //die("Connection failed: " . mysqli_connect_error());
 }
@@ -59,7 +59,7 @@ if (!$conn) {
     $_SESSION['newPerson']=$NewPerson;
     $_SESSION['flag'];
 
-    if(isset($_POST['delate'])){
+    if(isset($_POST['quit'])){
             $username="";
             $_SESSION['userName'] = "";
             $_SESSION['flag'] = false;
@@ -183,7 +183,7 @@ if (!$conn) {
         </div> </div> </div>
         </body>
         </html>";
-        exit();
+       exit();
     }   
 ?>
 
@@ -196,7 +196,7 @@ if (!$conn) {
             <label for="To-do">What is your work to do:</label><br> 
             <input type="text" id="To-do" name="To-do" placeholder="type your work here" />
             <input type="submit" name="addJob" value="add your job">
-            <input type="submit" name="delate" value="quit">
+            <input type="submit" name="quit" value="quit">
          </form>
      </div>
 
@@ -205,51 +205,117 @@ if (!$conn) {
 
         $ToDo_arr="";
 
-        
+        $JokeControl="";
         $username = $_SESSION['userName'];
 
         if(isset($_POST['addJob']))
         {
             
-            $ToDo_arr = $_POST['To-do'];            
-            $sql = "INSERT INTO jobs (AccountName,WorkToDo,is_checked) values ('$username','$ToDo_arr',0)";
+            $ToDo_arr = $_POST['To-do'];
+            if(empty($ToDo_arr))
+            {
+                $JokeControl =  "<h4>". $_SESSION['userName']. " You have to write your job :3 </h4>";
+
+            }
+            else{
+                $sql = "INSERT INTO jobs (AccountName,WorkToDo,is_checked) values ('$username','$ToDo_arr',0)";
+                mysqli_query($conn, $sql);
+                $JokeControl="";
+            }            
             $NewPerson=true;
-            mysqli_query($conn, $sql);
         }
         $Who = $username;
-        $sqlwho= "SELECT WorkToDo From jobs WHERE AccountName like '$Who'"; 
+        $sqlwho= "SELECT WorkToDo, is_checked From jobs WHERE AccountName like '$Who'"; 
         $resultWrite = mysqli_query($conn, $sqlwho);
         
 
     
     echo " <div class = 'justifyMiddle'> "; 
+    echo "<form method='post' action=''>";
+    echo $JokeControl;
+           
+        echo "<table> ";
         
-            echo "<table>";
-            echo "<th> what shoul I do </th>";
-            echo "<th> I am doing it. </th>";
+            if(empty(mysqli_fetch_row($resultWrite))){
+                echo "<h4> You need some work to do :3 mr or ms ". $_SESSION['userName'] . "</h4>";
+            }
+           else{
+            echo "<th> Work </th>";
+            echo "<th> I am doing. </th>";
             echo "<th> :3 </th>";
+                while ($row = mysqli_fetch_row($resultWrite)){
 
-            while($row = mysqli_fetch_row($resultWrite))
+                    echo "<tr>";
+    
+                    echo "<td>". $row[0]. "</td>";
+                    echo "<td> <input type='checkbox' name='SetSeries[]' value= $row[0] > </td>";
+                    echo "<td> <div style= 'float:right' > <input type='submit' value='delete' name='delete'> </td>";
+                    echo "</tr>";
+                }
+           } 
+              
+            mysqli_close($conn);
+        echo "</table>";
+    echo "</form>"; 
+    echo " </div>";
+    
+
+                /*
+            I think I will use that.
+
+
+                    while($row = mysqli_fetch_row())
             {
-                echo "<tr>";
+               
+                
+                                                bir şeyi silmek isterken silmek istediği şeyin datasını bul value yi array olarak kaydedebilir. obje dili çalışabilir.
+                                bir şeyler denenecek gibi, çünkü update olmuyor vsvs, ne yapman gerekiyor onu bulmam gerekiyor.
+            }
+          
                 foreach ($row as $key =>$value){
-                                //bir şeyi silmek isterken silmek istediği şeyin datasını bul value yi array olarak kaydedebilir. obje dili çalışabilir.
-                                //bir şeyler denenecek gibi, çünkü update olmuyor vsvs, ne yapman gerekiyor onu bulmam gerekiyor.
-
                     echo "<td>" .$value. "</td>";
                     echo "<td> <input name='' type='checkbox' value=''> </td>";
                     echo "<td> <div style= 'float:right' > <button>delate</button> </td>";
                     
                 }
-                echo "</tr>";
-            }
-            echo "</table>";
-            mysqli_close($conn);
-            
-    echo " </div>";
-            ?>
+                */
 
+
+                /* 
+if(isset($_POST['hey'])){
+                        echo "<br><br><h2> I am working well <h2> <br> <br>";
+
+
+                        if($checkMyBoi)
+                        {
+                            $checkMyBoi=1;
+                        }
+                        else
+                        {
+                            $checkMyBoi=0;
+                        }
+                        if(true)
+                        {
+                            $UpdateSql = "UPDATE `jobs` SET `is_checked`= $checkMyBoi WHERE WorkToDo = $row[1]";
+                            if(mysqli_query($conn, $UpdateSql))
+                            {
+                                echo "<br><br><h2> I am working well <h2> <br> <br>";
+                            }
+                            else{
+                                echo "<br><br><h2> I am not working well <h2> <br> <br>";
+    
+                            }
+                    }
+                    
+                    }
+*/
+            ?>
         </div>
+    </div>
+    <div>
+
+    
+
     </div>
 </body>
 
