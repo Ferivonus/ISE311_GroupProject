@@ -218,6 +218,7 @@ if (!$conn) {
 
             }
             else{
+                $username = $_SESSION['userName'];
                 $sql = "INSERT INTO jobs (AccountName,WorkToDo,is_checked) values ('$username','$ToDo_arr',0)";
                 mysqli_query($conn, $sql);
                 $JokeControl="";
@@ -226,7 +227,7 @@ if (!$conn) {
         }
         $Who = $username;
         $sqlwho= "SELECT WorkToDo, is_checked From jobs WHERE AccountName like '$Who'"; 
-        $resultWrite = mysqli_query($conn, $sqlwho);
+        
         
 
     
@@ -236,11 +237,9 @@ if (!$conn) {
            
         echo "<table> ";
         
-            if(empty(mysqli_fetch_row($resultWrite))){
-                echo "<h4> You need some work to do :3 mr or ms ". $_SESSION['userName'] . "</h4>";
-            }
-           else{
-            echo "<th> Work </th>";
+            if($resultWrite = mysqli_query($conn, $sqlwho)){
+
+                echo "<th> Work </th>";
             echo "<th> I am doing. </th>";
             echo "<th> :3 </th>";
                 while ($row = mysqli_fetch_row($resultWrite)){
@@ -252,6 +251,9 @@ if (!$conn) {
                     echo "<td> <div style= 'float:right' > <input type='submit' value='delete' name='delete'> </td>";
                     echo "</tr>";
                 }
+            }
+           else{
+            echo "<h4> You need some work to do :3 mr or ms ". $_SESSION['userName'] . "</h4>";
            } 
               
             mysqli_close($conn);
