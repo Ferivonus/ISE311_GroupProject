@@ -106,8 +106,8 @@ if (!$conn) {
                     mysqli_query($conn, $sql);
                     $YouCanLoginAs = " <p>You can log in as ". $AccountUsername . " right now.</p>";
                     $NewPerson=false;
-                    $_SESSION['newPerson']=false;
-                    $_SESSION['flag'] = true;
+                    $_SESSION['newPerson']=true;
+                    $_SESSION['flag'] = false;
 
                     setcookie('userName', $AccountUsername, time()- 50000 );
                     $_SESSION['userName'] = $AccountUsername;
@@ -232,33 +232,40 @@ if (!$conn) {
 
     
     echo " <div class = 'justifyMiddle'> "; 
-    echo "<form method='post' action=''>";
+    
     echo $JokeControl;
            
-        echo "<table> ";
         
-            if($resultWrite = mysqli_query($conn, $sqlwho)){
-
-                echo "<th> Work </th>";
-            echo "<th> I am doing. </th>";
+    $resultWrite = mysqli_query($conn, $sqlwho);
+    // Düzgün çalışmıyor olabilir, if içine yazılacak şey bulunacak
+        if(empty(mysqli_query($conn, $sqlwho))){
+            echo "<h4> You need some work to do :3 mr or ms ". $_SESSION['userName'] . "</h4>";
+        }
+        else{
+            echo "<form method='post' action=''>";
+            echo "<table> ";
+            echo "<th> my Works </th>";
+            echo "<th> I am doing </th>";
+            echo "<th> Done </th>";
             echo "<th> :3 </th>";
                 while ($row = mysqli_fetch_row($resultWrite)){
 
                     echo "<tr>";
     
                     echo "<td>". $row[0]. "</td>";
-                    echo "<td> <input type='checkbox' name='SetSeries[]' value= $row[0] > </td>";
+                    echo "<td> <input class='middleSide' type='checkbox' name='DoingSeries[]' value= !($row[1]) > </td>";
+                    echo "<td> <input class='middleSide' type='checkbox' name='DoneSeries[]' value= $row[1] > </td>";
                     echo "<td> <div style= 'float:right' > <input type='submit' value='delete' name='delete'> </td>";
                     echo "</tr>";
                 }
+                echo "</table>";
+                echo "</form>";
             }
-           else{
-            echo "<h4> You need some work to do :3 mr or ms ". $_SESSION['userName'] . "</h4>";
-           } 
+
               
             mysqli_close($conn);
-        echo "</table>";
-    echo "</form>"; 
+        
+ 
     echo " </div>";
     
 
