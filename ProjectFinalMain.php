@@ -237,7 +237,6 @@ if (!$conn) {
            
         
     $resultWrite = mysqli_query($conn, $sqlwho);
-    // Düzgün çalışmıyor olabilir, if içine yazılacak şey bulunacak
         if(empty(mysqli_query($conn, $sqlwho))){
             echo "<h4> You need some work to do :3 mr or ms ". $_SESSION['userName'] . "</h4>";
         }
@@ -253,8 +252,8 @@ if (!$conn) {
                     echo "<tr>";
     
                     echo "<td>". $row[0]. "</td>";
-                    echo "<td> <input class='middleSide' type='checkbox' name='DoingSeries[]' value= !($row[1]) > </td>";
-                    echo "<td> <input class='middleSide' type='checkbox' name='DoneSeries[]' value= $row[1] > </td>";
+                    echo "<td> <center> <input class='middleSide' type='checkbox' name='DoingSeries[]' value= !($row[1]) > </center> </td>";
+                    echo "<td> <center> <input class='middleSide' type='checkbox' name='DoneSeries[]' value= $row[1] >  </center> </td>";
                     echo "<td> <div style= 'float:right' > <input type='submit' value='delete' name='delete'> </td>";
                     echo "</tr>";
                 }
