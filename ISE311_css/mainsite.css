@@ -48,17 +48,18 @@ input[type=submit], form.HomeworkForm a{
 .homework{
   background-color: #34e7e4;
 }
-
-form th, form td {
+/*
+*/
+form th {
   margin: 0;
-  padding: 1.64em;
+  padding: 0.6em;
   list-style-type: none;
     
 }
 
 form td {
   margin: .5em 0;
-  padding: 1em 0;
+  padding: 0.5em 0;
   border-bottom: 1px dotted black;
 }
 
