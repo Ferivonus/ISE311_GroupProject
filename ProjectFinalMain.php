@@ -252,7 +252,7 @@ die("Connection failed: " . mysqli_connect_error());
                     echo "<tr>";
     
                     echo "<td> <p>" .$row[0]. "</p></td>";
-                    echo "<td> <center> <input type='checkbox' name='DoingSeries[]' value= !($row[1]) > </center> </td>";
+                    echo "<td> <center> <input type='checkbox' name='DoingSeries[]' value= $row[1] > </center> </td>";
                     echo "<td> <center> <input type='checkbox' name='DoneSeries[]' value= $row[1] > </center> </td>";
                     echo "<td> <input type='submit' value='delete' name='delete'> </td>";
                     echo "</tr>";
@@ -270,7 +270,6 @@ die("Connection failed: " . mysqli_connect_error());
             ?>
         </div>
     </div>
-<center></center>
 </body>
 
 </html>
