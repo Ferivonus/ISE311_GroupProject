@@ -246,7 +246,7 @@ die("Connection failed: " . mysqli_connect_error());
             echo "<th> my Works </th>";
             echo "<th> I am doing </th>";
             echo "<th> Done </th>";
-            echo "<th> :3 </th>";
+            echo "<th> delete </th>";
                 while ($row = mysqli_fetch_row($resultWrite)){
 
                     echo "<tr>";
