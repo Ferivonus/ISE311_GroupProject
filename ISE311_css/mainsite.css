@@ -15,9 +15,6 @@ p, form{
 	padding: 1em;
 	color: aliceblue;
 }
-.error {
-	color: red;
-}
 
 h1,
 h2,
@@ -53,11 +50,20 @@ input[type=submit], form.HomeworkForm a{
 }
 
 form th, form td {
-  border: 1px solid #404040;
-  border-radius: 10px;
-  border-collapse: collapse;
-  background-color: salmon;
+  margin: 0;
+  padding: 1.64em;
+  list-style-type: none;
     
+}
+
+form td {
+  margin: .5em 0;
+  padding: 1em 0;
+  border-bottom: 1px dotted black;
+}
+
+form td:last-child {
+  border-bottom: none;
 }
 
 /* 
@@ -94,31 +100,15 @@ body {
     justify-content: center;
 
   }
-  .gitCodeAddress{
+  input .middleSide{
+    align-items: center;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 1em;
   }
-
   
   .codeSide{
     justify-content: center;
     padding: 1em;
-  }
-
-  .definition{
-    padding: 1em;
-  }
-
-  .site-title {
-    margin: 1em 0 0;
-    padding: 0;
-    font-size: 1.5625em;
-    font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: #c96;
   }
 
   .page-title {
@@ -135,19 +125,16 @@ body {
     padding: 0;
     line-height: 1.3em;
   }
+
   .contentMyText{
     margin: .5em 0;
     padding: 0;
     text-align: justify;
   }
-  
-  .TheConclusion{
-    background-color: springgreen;
-  }
 
   @supports not (display: grid)
     {
-        .page-title,
+        .content-head,
         .codeSide{
             max-width: 50em;
             margin: 0 auto;

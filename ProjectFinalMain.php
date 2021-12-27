@@ -22,7 +22,7 @@ $server_password = "Fahrettin_basturk22";
 // Create connection
 $conn = new mysqli($server_servername, $server_username, $server_password, $server_database);        // Check connection
 if (!$conn) {
-//die("Connection failed: " . mysqli_connect_error());
+die("Connection failed: " . mysqli_connect_error());
 }
 ?>
 
@@ -97,8 +97,6 @@ if (!$conn) {
                         }
                     }
                 
-
-
                 if($SigningFlag)
                 {
                     //use a protocol which could used for hiding password 
@@ -219,7 +217,8 @@ if (!$conn) {
             }
             else{
                 $username = $_SESSION['userName'];
-                $sql = "INSERT INTO jobs (AccountName,WorkToDo,is_checked) values ('$username','$ToDo_arr',0)";
+                $sql = "INSERT INTO jobs (AccountName,WorkToDo,is_checked) values ('$username','$ToDo_arr',1)";
+                $ToDo_arr=null;
                 mysqli_query($conn, $sql);
                 $JokeControl="";
             }            
@@ -237,7 +236,8 @@ if (!$conn) {
            
         
     $resultWrite = mysqli_query($conn, $sqlwho);
-        if(empty(mysqli_query($conn, $sqlwho))){
+    // Düzgün çalışmıyor olabilir, if içine yazılacak şey bulunacak
+        if(empty($resultWrite)){
             echo "<h4> You need some work to do :3 mr or ms ". $_SESSION['userName'] . "</h4>";
         }
         else{
@@ -251,10 +251,10 @@ if (!$conn) {
 
                     echo "<tr>";
     
-                    echo "<td>". $row[0]. "</td>";
-                    echo "<td> <center> <input class='middleSide' type='checkbox' name='DoingSeries[]' value= !($row[1]) > </center> </td>";
-                    echo "<td> <center> <input class='middleSide' type='checkbox' name='DoneSeries[]' value= $row[1] >  </center> </td>";
-                    echo "<td> <div style= 'float:right' > <input type='submit' value='delete' name='delete'> </td>";
+                    echo "<td> <p>" .$row[0]. "</p></td>";
+                    echo "<td> <center> <input type='checkbox' name='DoingSeries[]' value= !($row[1]) > </center> </td>";
+                    echo "<td> <center> <input type='checkbox' name='DoneSeries[]' value= $row[1] > </center> </td>";
+                    echo "<td> <input type='submit' value='delete' name='delete'> </td>";
                     echo "</tr>";
                 }
                 echo "</table>";
@@ -267,64 +267,10 @@ if (!$conn) {
  
     echo " </div>";
     
-
-                /*
-            I think I will use that.
-
-
-                    while($row = mysqli_fetch_row())
-            {
-               
-                
-                                                bir şeyi silmek isterken silmek istediği şeyin datasını bul value yi array olarak kaydedebilir. obje dili çalışabilir.
-                                bir şeyler denenecek gibi, çünkü update olmuyor vsvs, ne yapman gerekiyor onu bulmam gerekiyor.
-            }
-          
-                foreach ($row as $key =>$value){
-                    echo "<td>" .$value. "</td>";
-                    echo "<td> <input name='' type='checkbox' value=''> </td>";
-                    echo "<td> <div style= 'float:right' > <button>delate</button> </td>";
-                    
-                }
-                */
-
-
-                /* 
-if(isset($_POST['hey'])){
-                        echo "<br><br><h2> I am working well <h2> <br> <br>";
-
-
-                        if($checkMyBoi)
-                        {
-                            $checkMyBoi=1;
-                        }
-                        else
-                        {
-                            $checkMyBoi=0;
-                        }
-                        if(true)
-                        {
-                            $UpdateSql = "UPDATE `jobs` SET `is_checked`= $checkMyBoi WHERE WorkToDo = $row[1]";
-                            if(mysqli_query($conn, $UpdateSql))
-                            {
-                                echo "<br><br><h2> I am working well <h2> <br> <br>";
-                            }
-                            else{
-                                echo "<br><br><h2> I am not working well <h2> <br> <br>";
-    
-                            }
-                    }
-                    
-                    }
-*/
             ?>
         </div>
     </div>
-    <div>
-
-    
-
-    </div>
+<center></center>
 </body>
 
 </html>
