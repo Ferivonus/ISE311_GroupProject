@@ -17,7 +17,7 @@ session_start();
 $server_servername = "localhost";
 $server_database = "u397214565_ISE311";
 $server_username = "u397214565_ferivonus";
-$server_password = "Fahrettin_basturk22";
+$server_password = "ferivonus_22";
 
 // Create connection
 $conn = new mysqli($server_servername, $server_username, $server_password, $server_database);        // Check connection
@@ -34,7 +34,7 @@ die("Connection failed: " . mysqli_connect_error());
     <li class="dropdown right" >
         <a href="javascript:void(0)" class="dropbtn">Who we are</a>
         <div class="dropdown-content">
-            <a href="#Fahrettin">Fahrettin</a>
+            <a href="#ferivonus">ferivonus</a>
             <a href="#Can"> Can</a>
             <a href="#Berk"> Berk</a>
         </div>
